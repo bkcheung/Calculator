@@ -55,9 +55,15 @@ function operate(num1,num2,operator){
     }
 }
 
+function populateDisp(input){
+    display.value = display.value + input;
+    return;
+}
+
 let num1 = 0;
 let num2 = 0;
 let operator = '+';
+let display = document.getElementById("calcDisplay");
 
 //testing area
 const result = operate(10,2.22,'/');
