@@ -65,6 +65,11 @@ function allClear(){
     return;
 }
 
+function delLastInput(){
+    display.value = display.value.substring(0,display.value.length-1);
+    return;
+}
+
 let num1 = 0;
 let num2 = 0;
 let operator = '+';
