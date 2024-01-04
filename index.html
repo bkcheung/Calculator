@@ -24,8 +24,8 @@
             <div class="buttons">
                 <div class="button-row">
                     <button class="button" onclick="allClear()">AC</button>
-                    <button class="button">(</button>
-                    <button class="button">)</button>
+                    <button class="button" onclick="delLastInput()">DEL</button>
+                    <button class="button" onclick="populateDisp('.')">.</button>
                     <button class="button">/</button>
                 </div>
                 <div class="button-row">
@@ -47,9 +47,7 @@
                     <button class="button">+</button>
                 </div>
                 <div class="button-row">
-                    <button class="button" onclick="delLastInput()">DEL</button>
-                    <button class="button" onclick="populateDisp(0)">0</button>
-                    <button class="button">.</button>
+                    <button class="button" id="zeroButton" onclick="populateDisp(0)">0</button>
                     <button class="button">=</button>
                 </div> 
             </div>
