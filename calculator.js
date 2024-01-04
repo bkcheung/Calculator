@@ -56,7 +56,12 @@ function operate(num1,num2,operator){
 }
 
 function populateDisp(input){
-    if(input==="."){ //check if decimal exists already
+    if(clearDisp === true){ //if there is a number stored, clear disp first
+        display.value = "";
+        clearDisp = false;
+    }
+    
+    if(input==="."){ //Block for decimal-specific handling
         if(display.value.includes(".")){ //Limit to one decimal place
             console.log(display.value);
             return;
@@ -65,13 +70,20 @@ function populateDisp(input){
             display.value = 0;
         }
     }
+
     display.value = display.value + input;
     return;
-}
+    
+} 
 
 
 function allClear(){
-    display.value = null;
+    display.value = "";
+    num1 = 0;
+    num2 = 0;
+    numStored = false;
+    opStored = false;
+    console.log(num1, num2, operator, numStored, opStored);
     return;
 }
 
@@ -80,11 +92,28 @@ function delLastInput(){
     return;
 }
 
-let num1 = 0;
-let num2 = 0;
-let operator = '+';
-let display = document.getElementById("calcDisplay");
+function operatorPress(op){
+    if(display.value !== ""){
+        num1 = display.value;
+    }
+    operator = op;
+    numStored = opStored = clearDisp = true;
 
-//testing area
-const result = operate(10,2.22,'/');
-console.log(result);
+    console.log(num1, num2, operator, numStored, opStored, clearDisp);
+}
+
+//Variables
+let num1 = 0, num2 = 0, operator = '+';
+let display = document.getElementById("calcDisplay");
+display.value = "";
+
+//console.log(num1, num2, operator);
+
+//Flags
+let numStored = opStored = clearDisp = false;
+
+
+
+// //testing area
+// const result = operate(10,2.22,'/');
+// console.log(result);

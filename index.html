@@ -26,29 +26,29 @@
                     <button class="button" onclick="allClear()">AC</button>
                     <button class="button" onclick="delLastInput()">DEL</button>
                     <button class="button" onclick="populateDisp('.')">.</button>
-                    <button class="button">/</button>
+                    <button class="button" onclick="operatorPress('/')">/</button>
                 </div>
                 <div class="button-row">
                     <button class="button" onclick="populateDisp(7)">7</button>
                     <button class="button" onclick="populateDisp(8)">8</button>
                     <button class="button" onclick="populateDisp(9)">9</button>
-                    <button class="button">*</button>
+                    <button class="button" onclick="operatorPress('*')">x</button>
                 </div>
                 <div class="button-row">
                     <button class="button" onclick="populateDisp(4)">4</button>
                     <button class="button" onclick="populateDisp(5)">5</button>
                     <button class="button" onclick="populateDisp(6)">6</button>
-                    <button class="button">-</button>
+                    <button class="button"onclick="operatorPress('-')">-</button>
                 </div>
                 <div class="button-row">
                     <button class="button" onclick="populateDisp(1)">1</button>
                     <button class="button" onclick="populateDisp(2)">2</button>
                     <button class="button" onclick="populateDisp(3)">3</button>
-                    <button class="button">+</button>
+                    <button class="button" onclick="operatorPress('+')">+</button>
                 </div>
                 <div class="button-row">
                     <button class="button" id="zeroButton" onclick="populateDisp(0)">0</button>
-                    <button class="button">=</button>
+                    <button class="button"onclick="operatorPress('=')">=</button>
                 </div> 
             </div>
             <div class="footer">Copyright © bkcheung 2024</div>
