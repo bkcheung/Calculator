@@ -56,9 +56,19 @@ function operate(num1,num2,operator){
 }
 
 function populateDisp(input){
+    if(input==="."){ //check if decimal exists already
+        if(display.value.includes(".")){ //Limit to one decimal place
+            console.log(display.value);
+            return;
+        }
+        else if(display.value.length == 0){ //Initialize with 0
+            display.value = 0;
+        }
+    }
     display.value = display.value + input;
     return;
 }
+
 
 function allClear(){
     display.value = null;
