@@ -59,6 +59,7 @@ function populateDisp(input){
     if(clearDisp === true){ //if there is a number stored, clear disp first
         display.value = "";
         clearDisp = false;
+        opReady = true;
     }
     
     if(input==="."){ //Block for decimal-specific handling
@@ -98,8 +99,8 @@ function operatorPress(op){//what to do when Operator is pressed
         operator = op;
         numStored = clearDisp = opReady = true;
     }
-    //Case 2: numStored = true, display ! empty
-    else if(display.value!==""){
+    //Case 2: numStored = true, clearDisp = false(when num2 has been input)
+    else if(clearDisp===false){
         //if opReady, then can operate
         if(opReady === true){
             num2 = Number(display.value);
@@ -107,20 +108,23 @@ function operatorPress(op){//what to do when Operator is pressed
             operator = op; //store new operator
 
             display.value = num1;
-            num2 = 0; //check if needed later
+            // num2 = 0; //check if needed later
             clearDisp = true;
         }
-        //if op!Ready,that means only num1 stored, need new op and num2
+        //if op!Ready,that means only num1 stored, need new op and num2 (after =)
         else{
             operator = op; //store new operator
             opReady = true;
             clearDisp = true;
         } 
     }
-     //Case 3: numStored = true, display = empty -> if you press another op after initial op
+     //Case 3: numStored = true, clearDisp = true (when no new num has been input)
+    else if(clearDisp ===true){
+        operator = op; //replace previous op with new op
+    }
     
     
-    console.log(num1, num2, operator, numStored, opReady, clearDisp);
+    console.log(`Num1:${num1}, Num2:${num2}, Op: ${operator}, opReady: ${opReady}, clearDisp:${clearDisp}`); 
 }
 
 function equalPress(){ //function for when '=' is pressed
@@ -128,13 +132,15 @@ function equalPress(){ //function for when '=' is pressed
     //Case 2:display not empty, num1 not stored -> nothing
     //Case 3: num1 stored, op stored, num2 not populated -> nothing
     //Case 4: num1 stored, op stored, num2 populated -> operate
-    if(numStored===true && opReady===true && display.value!==""){
+    if(numStored===true && opReady===true && clearDisp === false){
         num2 = Number(display.value);
         num1 = operate(num1,num2,operator);
         display.value = num1;
-        num2 = 0; //check if needed later
+        // num2 = 0; //check if needed later
         clearDisp = true;
         opReady = false; //turn flag off
+
+        console.log(`Num1:${num1}, Num2:${num2}, Op: ${operator}, opReady: ${opReady}, clearDisp:${clearDisp}`); 
     }
     return;
 }
@@ -144,12 +150,8 @@ let num1 = 0, num2 = 0, operator = "";
 let display = document.getElementById("calcDisplay");
 display.value = "";
 
-//console.log(num1, num2, operator);
-
 //Flags
 let numStored = opReady = clearDisp = false;
-
-
 
 // //testing area
 // const result = operate(10,2.22,"/");
