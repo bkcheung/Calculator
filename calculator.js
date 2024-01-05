@@ -1,5 +1,5 @@
 function add(a,b){
-    if(typeof(a)==='number'&&typeof(b)==='number'){
+    if(typeof(a)==="number"&&typeof(b)==="number"){
         return a+b;
     }
     else{
@@ -8,7 +8,7 @@ function add(a,b){
 }
 
 function subtract(a,b){
-    if(typeof a==='number' && typeof b==='number'){
+    if(typeof a==="number" && typeof b==="number"){
         return a-b;
     }
     else{
@@ -17,7 +17,7 @@ function subtract(a,b){
 }
 
 function multiply(a,b){
-    if(typeof a==='number' && typeof b==='number'){
+    if(typeof a==="number" && typeof b==="number"){
         //returns result rounded to 3 decimal places
         return Math.round(a*b*1000)/1000;
     }
@@ -27,7 +27,7 @@ function multiply(a,b){
 }
 
 function divide(a,b){
-    if(typeof a==='number' && typeof b==='number'){
+    if(typeof a==="number" && typeof b==="number"){
         //returns result rounded to 3 decimal places
         return Math.round(a/b*1000)/1000;
     }
@@ -37,18 +37,18 @@ function divide(a,b){
 }
 
 function operate(num1,num2,operator){
-    if(typeof(operator)==='string'){
+    if(typeof(operator)==="string"){
         switch(operator){
-            case '+':
+            case "+":
                 return add(num1,num2);
                 break;
-            case '-':
+            case "-":
                 return subtract(num1,num2);
                 break;
-            case '/':
+            case "/":
                 return divide(num1,num2);
                 break;
-            case '*':
+            case "*":
                 return multiply(num1,num2);
                 break;
         }
@@ -70,10 +70,8 @@ function populateDisp(input){
             display.value = 0;
         }
     }
-
     display.value = display.value + input;
     return;
-    
 } 
 
 
@@ -93,17 +91,42 @@ function delLastInput(){
 }
 
 function operatorPress(op){
-    if(display.value !== ""){
-        num1 = display.value;
+    //if num1 not stored, store num1 and op pressed, turn all flags on
+    if(numStored===false){
+        if(display.value !== ""){
+            num1 = Number(display.value);
+        }
+        operator = op;
+        numStored = clearDisp = opStored = true;
     }
-    operator = op;
-    numStored = opStored = clearDisp = true;
-
+    //if num1 stored, and display is not empty,  
+    else if(display.value!==""){
+        num2 = Number(display.value);
+        if(op==="="){
+            num1 = operate(num1,num2,operator); //use stored value of operator
+            num2 = "";
+        }
+        else{
+            num1 = operate(num1,num2,operator); //use latest value of op
+            operator = op;
+        }
+        display.value = num1;
+        num2 = 0;
+        clearDisp = true;
+    }
+    //if display is empty (when op has been pressed and clear disp on), 
+    //replace operator if it"s not "="
+    else if(display.value===""){
+        if(op!=="="){
+            operator = op;
+        }
+    }
+    
     console.log(num1, num2, operator, numStored, opStored, clearDisp);
 }
 
 //Variables
-let num1 = 0, num2 = 0, operator = '+';
+let num1 = 0, num2 = 0, operator = "";
 let display = document.getElementById("calcDisplay");
 display.value = "";
 
@@ -115,5 +138,5 @@ let numStored = opStored = clearDisp = false;
 
 
 // //testing area
-// const result = operate(10,2.22,'/');
+// const result = operate(10,2.22,"/");
 // console.log(result);
