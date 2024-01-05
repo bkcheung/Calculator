@@ -18,8 +18,7 @@ function subtract(a,b){
 
 function multiply(a,b){
     if(typeof a==="number" && typeof b==="number"){
-        //returns result rounded to 3 decimal places
-        return Math.round(a*b*1000)/1000;
+        return a*b;
     }
     else{
         throw new Error("Both inputs must be numbers");
@@ -28,8 +27,7 @@ function multiply(a,b){
 
 function divide(a,b){
     if(typeof a==="number" && typeof b==="number"){
-        //returns result rounded to 3 decimal places
-        return Math.round(a/b*1000)/1000;
+        return a/b;
     }
     else{
         throw new Error("Both inputs must be numbers");
@@ -108,7 +106,6 @@ function operatorPress(op){//what to do when Operator is pressed
             operator = op; //store new operator
 
             display.value = num1;
-            // num2 = 0; //check if needed later
             clearDisp = true;
         }
         //if op!Ready,that means only num1 stored, need new op and num2 (after =)
@@ -123,7 +120,6 @@ function operatorPress(op){//what to do when Operator is pressed
         operator = op; //replace previous op with new op
     }
     
-    
     console.log(`Num1:${num1}, Num2:${num2}, Op: ${operator}, opReady: ${opReady}, clearDisp:${clearDisp}`); 
 }
 
@@ -136,7 +132,6 @@ function equalPress(){ //function for when '=' is pressed
         num2 = Number(display.value);
         num1 = operate(num1,num2,operator);
         display.value = num1;
-        // num2 = 0; //check if needed later
         clearDisp = true;
         opReady = false; //turn flag off
 
