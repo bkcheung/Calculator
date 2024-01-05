@@ -74,14 +74,13 @@ function populateDisp(input){
     return;
 } 
 
-
 function allClear(){
     display.value = "";
     num1 = 0;
     num2 = 0;
     numStored = false;
-    opStored = false;
-    console.log(num1, num2, operator, numStored, opStored);
+    opReady = false;
+    console.log(num1, num2, operator, numStored, opReady);
     return;
 }
 
@@ -90,39 +89,54 @@ function delLastInput(){
     return;
 }
 
-function operatorPress(op){
-    //if num1 not stored, store num1 and op pressed, turn all flags on
+function operatorPress(op){//what to do when Operator is pressed
+    //Case 1: num1 not stored, store num1 and op pressed, turn all flags on
     if(numStored===false){
         if(display.value !== ""){
             num1 = Number(display.value);
         }
         operator = op;
-        numStored = clearDisp = opStored = true;
+        numStored = clearDisp = opReady = true;
     }
-    //if num1 stored, and display is not empty,  
+    //Case 2: numStored = true, display ! empty
     else if(display.value!==""){
-        num2 = Number(display.value);
-        if(op==="="){
-            num1 = operate(num1,num2,operator); //use stored value of operator
-            num2 = "";
+        //if opReady, then can operate
+        if(opReady === true){
+            num2 = Number(display.value);
+            num1 = operate(num1,num2,operator); //run last operation
+            operator = op; //store new operator
+
+            display.value = num1;
+            num2 = 0; //check if needed later
+            clearDisp = true;
         }
+        //if op!Ready,that means only num1 stored, need new op and num2
         else{
-            num1 = operate(num1,num2,operator); //use latest value of op
-            operator = op;
-        }
-        display.value = num1;
-        num2 = 0;
-        clearDisp = true;
+            operator = op; //store new operator
+            opReady = true;
+            clearDisp = true;
+        } 
     }
-    //if display is empty (when op has been pressed and clear disp on), 
-    //replace operator if it"s not "="
-    else if(display.value===""){
-        if(op!=="="){
-            operator = op;
-        }
-    }
+     //Case 3: numStored = true, display = empty -> if you press another op after initial op
     
-    console.log(num1, num2, operator, numStored, opStored, clearDisp);
+    
+    console.log(num1, num2, operator, numStored, opReady, clearDisp);
+}
+
+function equalPress(){ //function for when '=' is pressed
+    //Case 1: everything is empty -> nothing
+    //Case 2:display not empty, num1 not stored -> nothing
+    //Case 3: num1 stored, op stored, num2 not populated -> nothing
+    //Case 4: num1 stored, op stored, num2 populated -> operate
+    if(numStored===true && opReady===true && display.value!==""){
+        num2 = Number(display.value);
+        num1 = operate(num1,num2,operator);
+        display.value = num1;
+        num2 = 0; //check if needed later
+        clearDisp = true;
+        opReady = false; //turn flag off
+    }
+    return;
 }
 
 //Variables
@@ -133,7 +147,7 @@ display.value = "";
 //console.log(num1, num2, operator);
 
 //Flags
-let numStored = opStored = clearDisp = false;
+let numStored = opReady = clearDisp = false;
 
 
 
