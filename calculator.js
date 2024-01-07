@@ -145,6 +145,25 @@ let num1 = 0, num2 = 0, operator = "";
 let display = document.getElementById("calcDisplay");
 display.value = "";
 
+document.addEventListener("keydown", (event)=>{
+    let pressedKey = event.key; 
+    if(pressedKey==="+" || pressedKey==="-"  || pressedKey==="/"  || pressedKey==="*" ){
+        operatorPress(pressedKey);
+    }
+    else if(pressedKey==="="|| pressedKey==="Enter"){
+        equalPress();
+    }
+    else if(pressedKey==="Backspace"){
+        delLastInput();
+    }
+    else if(pressedKey==="Escape"){
+        allClear();
+    }
+    else if(!isNaN(Number(pressedKey))){//Will return NaN for non-numbers
+        populateDisp(pressedKey);
+    }
+});
+
 //Flags
 let numStored = opReady = clearDisp = false;
 
