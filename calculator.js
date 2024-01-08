@@ -55,20 +55,20 @@ function operate(num1,num2,operator){
 
 function populateDisp(input){
     if(clearDisp === true){ //if there is a number stored, clear disp first
-        display.textContent = "";
+        display.value = "";
         clearDisp = false;
         opReady = true;
     }
     
-    if(input==="." && display.textContent.includes(".")){ //Block for decimal-specific handling
+    if(input==="." && display.value.includes(".")){ //Block for decimal-specific handling
         return;
     }
-    display.textContent += input;
+    display.value += input;
     return;
 } 
 
 function allClear(){
-    display.textContent = 0;
+    display.value = "";
     history.textContent = "";
     num1 = 0;
     num2 = 0;
@@ -80,7 +80,7 @@ function allClear(){
 }
 
 function delLastInput(){
-    display.textContent = display.textContent.substring(0,display.textContent.length-1);
+    display.value = display.value.substring(0,display.value.length-1);
     return;
 }
 
@@ -88,8 +88,8 @@ function operatorPress(op){//what to do when Operator is pressed
     
     //Case 1: num1 not stored, store num1 and op pressed, turn all flags on
     if(numStored===false){
-        if(display.textContent !== ""){
-            num1 = Number(display.textContent);
+        if(display.value !== ""){
+            num1 = Number(display.value);
         }
         operator = op;
         numStored = clearDisp = opReady = true;
@@ -100,10 +100,10 @@ function operatorPress(op){//what to do when Operator is pressed
     else if(clearDisp===false){
         //if opReady, then can operate
         if(opReady === true){
-            num2 = Number(display.textContent);
+            num2 = Number(display.value);
             num1 = operate(num1,num2,operator); //run last operation
             operator = op; //store new operator
-            display.textContent = num1;
+            display.value = num1;
             clearDisp = true;
 
             history.textContent += num2;
@@ -115,7 +115,7 @@ function operatorPress(op){//what to do when Operator is pressed
             opReady = true;
             clearDisp = true;
 
-            history.textContent = display.textContent;
+            history.textContent = display.value;
             history.textContent += operator;
             
         } 
@@ -132,9 +132,9 @@ function operatorPress(op){//what to do when Operator is pressed
 
 function equalPress(){ //function for when '=' is pressed
     if(numStored===true && opReady===true && clearDisp === false){
-        num2 = Number(display.textContent);
+        num2 = Number(display.value);
         num1 = operate(num1,num2,operator);
-        display.textContent = num1;
+        display.value = num1;
         history.textContent += num2;
         history.textContent += "=";
         opReady = false; //turn flag off
