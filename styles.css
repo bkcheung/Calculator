@@ -15,6 +15,12 @@ a{
     text-decoration: none;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none; /*remove default # arrows*/
+  margin: 0;
+}
+
 .console{
     background-color:rgb(196, 220, 225);
     padding: 30px;
@@ -52,7 +58,7 @@ a{
     font-size: 30px;
     width: 100%;
     display: block;
-    overflow: auto;
+    overflow: scroll;
 }
 
 .buttonGrid{
