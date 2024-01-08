@@ -55,26 +55,20 @@ function operate(num1,num2,operator){
 
 function populateDisp(input){
     if(clearDisp === true){ //if there is a number stored, clear disp first
-        display.value = "";
+        display.textContent = "";
         clearDisp = false;
         opReady = true;
     }
     
-    if(input==="."){ //Block for decimal-specific handling
-        if(display.value.includes(".")){ //Limit to one decimal place
-            console.log(display.value);
-            return;
-        }
-        else if(display.value.length == 0){ //Initialize with 0
-            display.value = 0;
-        }
+    if(input==="." && display.textContent.includes(".")){ //Block for decimal-specific handling
+        return;
     }
-    display.value = display.value + input;
+    display.textContent += input;
     return;
 } 
 
 function allClear(){
-    display.value = "";
+    display.textContent = "";
     num1 = 0;
     num2 = 0;
     numStored = false;
@@ -84,15 +78,15 @@ function allClear(){
 }
 
 function delLastInput(){
-    display.value = display.value.substring(0,display.value.length-1);
+    display.textContent = display.textContent.substring(0,display.textContent.length-1);
     return;
 }
 
 function operatorPress(op){//what to do when Operator is pressed
     //Case 1: num1 not stored, store num1 and op pressed, turn all flags on
     if(numStored===false){
-        if(display.value !== ""){
-            num1 = Number(display.value);
+        if(display.textContent !== ""){
+            num1 = Number(display.textContent);
         }
         operator = op;
         numStored = clearDisp = opReady = true;
@@ -101,11 +95,12 @@ function operatorPress(op){//what to do when Operator is pressed
     else if(clearDisp===false){
         //if opReady, then can operate
         if(opReady === true){
-            num2 = Number(display.value);
+            num2 = Number(display.textContent);
+            console.log(`WHEEEEE`);
             num1 = operate(num1,num2,operator); //run last operation
             operator = op; //store new operator
 
-            display.value = num1;
+            display.textContent = num1;
             clearDisp = true;
         }
         //if op!Ready,that means only num1 stored, need new op and num2 (after =)
@@ -129,9 +124,9 @@ function equalPress(){ //function for when '=' is pressed
     //Case 3: num1 stored, op stored, num2 not populated -> nothing
     //Case 4: num1 stored, op stored, num2 populated -> operate
     if(numStored===true && opReady===true && clearDisp === false){
-        num2 = Number(display.value);
+        num2 = Number(display.textContent);
         num1 = operate(num1,num2,operator);
-        display.value = num1;
+        display.textContent = num1;
         clearDisp = true;
         opReady = false; //turn flag off
 
@@ -140,12 +135,13 @@ function equalPress(){ //function for when '=' is pressed
     return;
 }
 
-//Variables
+//Variables & Flags
 let num1 = 0, num2 = 0, operator = "";
 let display = document.getElementById("calcDisplay");
-console.log(display.textContent);
-// display.value = "";
+let numStored = opReady = false;
+let clearDisp = true;
 
+//Event listener for keyboard input
 document.addEventListener("keydown", (event)=>{
     let pressedKey = event.key; 
     if(pressedKey==="+" || pressedKey==="-"  || pressedKey==="/"  || pressedKey==="*" ){
@@ -164,10 +160,3 @@ document.addEventListener("keydown", (event)=>{
         populateDisp(pressedKey);
     }
 });
-
-//Flags
-let numStored = opReady = clearDisp = false;
-
-// //testing area
-// const result = operate(10,2.22,"/");
-// console.log(result);
