@@ -1,57 +1,66 @@
-body {
-    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    color:rgba(0, 0, 0, 0.75);
-    padding: 30px;
-    margin: 0 auto;
-    min-width: 330px;
-    justify-content: center;
-    display: flex;
+html, body{
+    min-height: 100%;
+    margin: 0;
 }
 
-.footer{
-    margin: 30px 30px 0px 30px;
-    font-size: smaller;
-    color: grey;
+body {
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color:rgb(34, 34, 34);
+    padding-top: 30px;
+
+    display: flex;
+    flex-direction: column;
 }
+
 .console{
     background-color:rgb(196, 220, 225);
     padding: 30px;
     margin: 0 auto;
-    border: 1px solid grey;
+    border: 1.5px solid grey;
     border-radius:1em;
-    max-width: 275px;
+
     text-align: center;
-    flex: 1;
-}
-.display{
-    background-color: rgb(224, 224, 224);
-    font-size: x-large;
-    padding: 10px;
-    border: 1px solid grey;
-    border-radius: 0.25em;
-    text-align: right;
-    flex:1;
-}
-
-.buttons{
-    margin-top: 30px;
-    flex:1;
-}
-
-.button-row{
-    justify-content: space-between;
-    margin: 10px 0px 10px 0px;
-    flex: 1;
     display: flex;
+    flex-direction: column;
+
+    min-height: 500px;
+    width: 350px;
+
+}
+
+.screen{
+    background-color: rgb(224, 224, 224);
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1.5px solid grey;
+    border-radius: 0.5em;
+    text-align: right;
+}
+
+.history{
+    height: 40px;
+    font-size: 20px;
+}
+
+.display{
+    height: 50px;
+    font-size: 30px;
+}
+
+.buttonGrid{
+    flex:1;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(5,1fr);
+    grid-gap: 10px;
 }
 
 .button{
-    color:rgba(0, 0, 0, 0.75);
+    color:rgba(23, 23, 23, 0.75);
     background-color: rgb(178, 202, 235);
     padding: 10px;
-    font-size: medium;
-    width: 4em;
-    border: 1px solid grey;
+    font-size: 20px;
+    border: 1.5px solid grey;
     border-radius: 0.5em;
 }
 
@@ -59,6 +68,23 @@ body {
     background-color: rgb(139, 157, 184);
 }
 
+.button:hover{
+    background-color: rgb(139, 157, 184);
+}
+
 #zeroButton{
-    width: 12.8em;
+    grid-column-start:1;
+    grid-column-end:4;
+}
+
+.footer{
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    font-size: smaller;
+    color: grey;
 }

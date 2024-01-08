@@ -143,7 +143,8 @@ function equalPress(){ //function for when '=' is pressed
 //Variables
 let num1 = 0, num2 = 0, operator = "";
 let display = document.getElementById("calcDisplay");
-display.value = "";
+console.log(display.textContent);
+// display.value = "";
 
 document.addEventListener("keydown", (event)=>{
     let pressedKey = event.key; 
