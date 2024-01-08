@@ -59,23 +59,23 @@ function populateDisp(input){
         clearDisp = false;
         opReady = true;
     }
+
+    if(clearHist === true){
+        history.textContent = "";
+        clearHist = false;
+    }
     
     if(input==="." && display.value.includes(".")){ //Block for decimal-specific handling
         return;
     }
-    display.value += input;
+    display.value += String(input);
     return;
 } 
 
 function allClear(){
-    display.value = "";
-    history.textContent = "";
-    num1 = 0;
-    num2 = 0;
-    numStored = false;
-    opReady = false;
-    clearDisp = true;
-    console.log(num1, num2, operator, numStored, opReady);
+    display.value = history.textContent = "";
+    num1 = num2 =0;
+    numStored = opReady = clearDisp = false;
     return;
 }
 
@@ -84,8 +84,7 @@ function delLastInput(){
     return;
 }
 
-function operatorPress(op){//what to do when Operator is pressed
-    
+function operatorPress(op){
     //Case 1: num1 not stored, store num1 and op pressed, turn all flags on
     if(numStored===false){
         if(display.value !== ""){
@@ -100,14 +99,21 @@ function operatorPress(op){//what to do when Operator is pressed
     else if(clearDisp===false){
         //if opReady, then can operate
         if(opReady === true){
-            num2 = Number(display.value);
-            num1 = operate(num1,num2,operator); //run last operation
-            operator = op; //store new operator
-            display.value = num1;
-            clearDisp = true;
+            if(display.value === "0" && operator ==="/"){
+                allClear();
+                history.textContent = "ERROR! CANNOT DIVIDE BY 0";
+                clearHist = true; 
+            }
+            else {
+                num2 = Number(display.value);
+                num1 = operate(num1,num2,operator); //run last operation
+                operator = op; //store new operator
+                display.value = num1;
+                clearDisp = true;
 
-            history.textContent += num2;
-            history.textContent += operator;
+                history.textContent += num2;
+                history.textContent += operator;
+            }
         }
         //if op!Ready,that means only num1 stored, need new op and num2 (after =)
         else{
@@ -132,12 +138,20 @@ function operatorPress(op){//what to do when Operator is pressed
 
 function equalPress(){ //function for when '=' is pressed
     if(numStored===true && opReady===true && clearDisp === false){
-        num2 = Number(display.value);
-        num1 = operate(num1,num2,operator);
-        display.value = num1;
-        history.textContent += num2;
-        history.textContent += "=";
-        opReady = false; //turn flag off
+        if(display.value === "0" && operator==="/"){
+            allClear();
+            history.textContent = "ERROR! CANNOT DIVIDE BY 0";
+            clearHist = true; 
+        }
+        else {
+            num2 = Number(display.value);
+            num1 = operate(num1,num2,operator);
+            display.value = num1;
+            history.textContent += num2;
+            history.textContent += "=";
+            opReady = false; //turn flag off
+        }
+        
     }
     return;
 }
@@ -147,7 +161,7 @@ let num1 = 0, num2 = 0, operator = "";
 let display = document.getElementById("calcDisp");
 let history = document.getElementById("historyDisp");
 
-let numStored = opReady = false;
+let numStored = opReady = clearHist = false;
 let clearDisp = true;
 
 //Event listener for keyboard input
