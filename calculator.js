@@ -46,7 +46,7 @@ function operate(num1,num2,operator){
             case "/":
                 return divide(num1,num2);
                 break;
-            case "*":
+            case "x":
                 return multiply(num1,num2);
                 break;
         }
@@ -153,8 +153,11 @@ let clearDisp = true;
 //Event listener for keyboard input
 document.addEventListener("keydown", (event)=>{
     let pressedKey = event.key; 
-    if(pressedKey==="+" || pressedKey==="-"  || pressedKey==="/"  || pressedKey==="*" ){
+    if(pressedKey==="+" || pressedKey==="-"  || pressedKey==="/"  || pressedKey==="x" ){
         operatorPress(pressedKey);
+    }
+    else if(pressedKey==="*"){
+        operatorPress("x");
     }
     else if(pressedKey==="="|| pressedKey==="Enter"){
         equalPress();
