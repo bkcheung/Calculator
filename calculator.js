@@ -165,7 +165,7 @@ document.addEventListener("keydown", (event)=>{
     else if(pressedKey==="Escape"){
         allClear();
     }
-    else if(!isNaN(Number(pressedKey))){//Will return NaN for non-numbers
+    else if(!isNaN(Number(pressedKey)) || pressedKey === "."){//Will return NaN for non-numbers
         populateDisp(pressedKey);
     }
 });
