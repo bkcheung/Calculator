@@ -92,8 +92,7 @@ function operatorPress(op){
         }
         operator = op;
         numStored = clearDisp = opReady = true;
-        history.textContent += num1;
-        history.textContent += operator;
+        history.textContent += `(${num1}${operator}`;
     }
     //Case 2: numStored = true, clearDisp = false(when num2 has been input)
     else if(clearDisp===false){
@@ -110,9 +109,8 @@ function operatorPress(op){
                 operator = op; //store new operator
                 display.value = num1;
                 clearDisp = true;
-
-                history.textContent += num2;
-                history.textContent += operator;
+                history.textContent = `(${history.textContent}`;
+                history.textContent += `${num2})${operator}`;
             }
         }
         //if op!Ready,that means only num1 stored, need new op and num2 (after =)
@@ -120,9 +118,7 @@ function operatorPress(op){
             operator = op; //store new operator
             opReady = true;
             clearDisp = true;
-
-            history.textContent = display.value;
-            history.textContent += operator;
+            history.textContent = `(${display.value}${operator}`;
             
         } 
     }
@@ -147,11 +143,9 @@ function equalPress(){ //function for when '=' is pressed
             num2 = Number(display.value);
             num1 = operate(num1,num2,operator);
             display.value = num1;
-            history.textContent += num2;
-            history.textContent += "=";
-            opReady = false; //turn flag off
+            history.textContent += `${num2})=`;
+            opReady = false;
         }
-        
     }
     return;
 }
