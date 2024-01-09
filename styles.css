@@ -86,7 +86,7 @@ input::-webkit-inner-spin-button {
     background-color: rgb(139, 157, 184);
 }
 
-#zeroButton{
+#b0{
     grid-column-start:1;
     grid-column-end:4;
 }

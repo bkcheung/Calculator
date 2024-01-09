@@ -65,8 +65,13 @@ function populateDisp(input){
         clearHist = false;
     }
     
-    if(input==="." && display.value.includes(".")){ //Block for decimal-specific handling
-        return;
+    if(input==="."){ //Block for decimal-specific handling
+        if(display.value.includes(".")){
+            return
+        }
+        else if(display.value.length===0){
+            display.value = "0";
+        }
     }
     display.value += String(input);
     return;
@@ -128,8 +133,6 @@ function operatorPress(op){
         history.textContent = history.textContent.substring(0,history.textContent.length-1);
         history.textContent += operator;
     }
-    
-    console.log(`Num1:${num1}, Num2:${num2}, Op: ${operator}, opReady: ${opReady}, clearDisp:${clearDisp}`); 
 }
 
 function equalPress(){ //function for when '=' is pressed
@@ -154,7 +157,6 @@ function equalPress(){ //function for when '=' is pressed
 let num1 = 0, num2 = 0, operator = "";
 let display = document.getElementById("calcDisp");
 let history = document.getElementById("historyDisp");
-
 let numStored = opReady = clearHist = false;
 let clearDisp = true;
 
@@ -181,3 +183,46 @@ document.addEventListener("keydown", (event)=>{
     }
 });
 
+//Buttons and click listeners
+const acButton = document.querySelector("#ac");
+const delButton = document.querySelector("#del");
+const equalButton = document.querySelector("#equals");
+
+acButton.addEventListener('click', ()=>{ 
+    allClear(); 
+    acButton.blur();
+});
+delButton.addEventListener('click', ()=>{
+    delLastInput();
+    delButton.blur();
+});
+equalButton.addEventListener('click', ()=>{
+    equalPress(); 
+    equalButton.blur();
+});
+
+const opButtons = [];
+const operatorIDs = ["#divide","#multiply","#add","#subtract"];
+
+for(let i = 0; i<4; i++){
+    opButtons.push(document.querySelector(operatorIDs[i]));
+    opButtons[i].addEventListener('click', ()=>{
+        operatorPress(opButtons[i].textContent);
+        opButtons[i].blur();
+    })
+}
+
+const numButtons = [];
+for(let i = 0; i < 10; i++) {
+    numButtons.push(document.querySelector(`#b${String(i)}`));
+    numButtons[i].addEventListener('click', () => {
+        populateDisp(String(i));
+        numButtons[i].blur();
+    })
+}
+
+const decButton = document.querySelector("#dec");
+decButton.addEventListener('click', ()=>{
+    populateDisp('.');
+    decButton.blur();
+})
